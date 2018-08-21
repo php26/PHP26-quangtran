@@ -62,15 +62,22 @@ Route::put('/cats/{cat}', [
 ]);
 
 Route::delete('/cats/{cat}', [
-	'as' => 'cats.delete',
+	'as' => 'cats.destroy',
 	'uses' => 'CatController@destroy'
 ]);
 
-// Route::resource('cats', 'CatController');
+// Route::destroy('cats', 'CatController');
 
 
+Route::get('/users', [
+	'as' => 'users.index',
+	'uses' => 'UserController@index'
+]);
 
-
+Route::get('/categories', [
+	'as' => 'categories.index',
+	'uses' => 'CategoryController@index'
+]);
 
 
 

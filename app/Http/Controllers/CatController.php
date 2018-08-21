@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Cat;
 use Illuminate\Http\Request;
+use App\Role;
+use App\User;
+use App\Product;
+use App\Category;
 
 class CatController extends Controller
 {
@@ -14,7 +18,13 @@ class CatController extends Controller
      */
     public function index()
     {
-        $cat = Cat::get();
+
+        // \DB::enableQueryLog();
+        $cat = Cat::isBirthday()->get(); // query scope
+        // dd(\DB::getQueryLog());
+        $cat= Cat::all();  //trả về giá trị là 1 Collection
+        dd($cat, $cat->toArray());// toArray() là 1 method mà Collection hổ trợ để chuyển định dạng data thành array
+        // dd($cat);
         return view('cats.index', compact('cat'));
     }
 
@@ -25,6 +35,17 @@ class CatController extends Controller
      */
     public function create()
     {
+        // $data=[
+        //     'name' => 'meo 2',
+        //     'dob' => '2000-10-10',
+        //     'breed_id' => 1
+        // ];
+        // $cat= Cat::create($data);
+
+        // dd($cat);
+
+
+
         return view('cats.create');
     }
 
@@ -89,9 +110,10 @@ class CatController extends Controller
      * @param  \App\Cat  $cat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cat $cat)
+    public function destroy($id)
     {
         // dd($cat);
+        $cat= Cat::find($id);
         $cat->delete();
         return redirect()->route('cats.index');
     }

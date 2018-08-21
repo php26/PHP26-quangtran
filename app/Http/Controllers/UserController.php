@@ -14,7 +14,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users= User::get();
+        \DB::enableQueryLog();
+        $user= User::find(1);
+        $user->roles()->sync(1);
+        dd($user);
+
+        // dd($user, \DB::getQueryLog());
         return view('users.index', compact('users'));
     }
 

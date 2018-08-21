@@ -5,20 +5,22 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Cat extends Model
+class UserProfile extends Model
 {
-	use SoftDeletes;
+	use SoftDeletes ;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'dob','breed_id',
+        'user_id', 'address', 'phone',
     ];
+    protected $dates = ['deleted_at'];
 
-    public function scopeIsBirthday($query)
+    public function user()
     {
-    	return $query->where('dob', '>=', date('Y-m-d'));
+    	return $this->belongsTo('App\User');
     }
+
 }
